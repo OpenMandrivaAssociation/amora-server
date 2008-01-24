@@ -1,18 +1,21 @@
-Name: amora
-Version: 0.9svn
+Name: amora-server
+Version: 1.0
 Release: %mkrel 1
-Summary: A mobile remote assistant
+Summary: A mobile remote assistant (server)
 License: GPLv2
 Group: System/X11
 URL: http://code.google.com/p/amora/
-# svn contains some important fixes since 0.9
-# (2007-11-12)
-Source: http://amora.googlecode.com/files/amora_server-%{version}.tar.gz
+# the svn on the tarball name is bogus, it's actually amora-1.0, see
+# http://groups.google.com/group/amora-devel/browse_thread/thread/2a8f64a4fd6ce6ca
+Source: http://amora.googlecode.com/files/amora-server-%{version}svn.tar.gz
+Patch0: amora-server-1.0-manpages_names.patch
+Patch1: amora-server-1.0-help.patch
 BuildRequires: libimlib2-devel
 BuildRequires: libbluez-devel
 BuildRequires: libxtst-devel
 BuildRequires: libx11-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}
+Obsoletes: amora <= 0.9svn-1mdv2008.1
 
 %description
 Amora is an application that enables you to control your PC desktop using a
@@ -28,9 +31,13 @@ for S60 (Nokia cellphones) and is available at
 http://code.google.com/p/amora/
 
 %prep
-%setup -q -n amora_server-%{version}
+%setup -q -n amora-server-%{version}svn
+%patch0 -p0 -b .man_names
+%patch1 -p0 -b .help
 
 %build
+# because of patch0
+autoreconf -ifs
 %configure
 %make
 
@@ -44,6 +51,6 @@ http://code.google.com/p/amora/
 %files
 %defattr(-,root,root)
 %doc README
-%{_bindir}/amora
-%{_mandir}/man1/amora.1.*
-
+%{_bindir}/amorad
+%{_mandir}/man7/amora.7.*
+%{_mandir}/man8/amorad.8.*
