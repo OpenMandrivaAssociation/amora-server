@@ -1,6 +1,6 @@
 Name: amora-server
 Version: 1.0
-Release: %mkrel 3
+Release: %mkrel 4
 Summary: A mobile remote assistant (server)
 License: GPLv2
 Group: System/X11
