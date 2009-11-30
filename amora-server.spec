@@ -1,19 +1,16 @@
 Name: amora-server
-Version: 1.0
-Release: %mkrel 4
+Version: 1.1
+Release: %mkrel 1
 Summary: A mobile remote assistant (server)
 License: GPLv2
 Group: System/X11
 URL: http://code.google.com/p/amora/
-# the svn on the tarball name is bogus, it's actually amora-1.0, see
-# http://groups.google.com/group/amora-devel/browse_thread/thread/2a8f64a4fd6ce6ca
-Source: http://amora.googlecode.com/files/amora-server-%{version}svn.tar.gz
-Patch0: amora-server-1.0-manpages_names.patch
-Patch1: amora-server-1.0-help.patch
+Source: http://amora.googlecode.com/files/amora-server-%{version}.tar.gz
 BuildRequires: libimlib2-devel
 BuildRequires: libbluez-devel
 BuildRequires: libxtst-devel
 BuildRequires: libx11-devel
+BuildRequires: dbus-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}
 Obsoletes: amora <= 0.9svn-1mdv2008.1
 
@@ -31,19 +28,15 @@ for S60 (Nokia cellphones) and is available at
 http://code.google.com/p/amora/
 
 %prep
-%setup -q -n amora-server-%{version}svn
-%patch0 -p0 -b .man_names
-%patch1 -p0 -b .help
+%setup -q -n amora-server-%{version}
 
 %build
-# because of patch0
-autoreconf -ifs
-%configure
+%configure2_5x
 %make
 
 %install
 %{__rm} -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 
 %clean
 %{__rm} -rf %{buildroot}
