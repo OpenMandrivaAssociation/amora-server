@@ -4,7 +4,7 @@ Release: 4
 Summary: A mobile remote assistant (server)
 License: GPLv2
 Group: System/X11
-URL: http://code.google.com/p/amora/
+URL: https://code.google.com/p/amora/
 Source: http://amora.googlecode.com/files/amora-server-%{version}.tar.gz
 BuildRequires: pkgconfig(imlib2)
 BuildRequires: pkgconfig(bluez)
